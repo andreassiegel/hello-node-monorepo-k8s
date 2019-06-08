@@ -1,0 +1,36 @@
+FROM node:10-alpine as base
+
+FROM base as builder
+MAINTAINER Andreas Siegel
+
+WORKDIR /workspace
+
+RUN npm i lerna yarn -g
+
+COPY package.json .
+COPY task .
+COPY babel.config.js .
+COPY babel.register.js .
+RUN yarn install
+
+COPY services/hello ./services/hello
+
+COPY lerna.json .
+RUN lerna bootstrap
+
+WORKDIR /workspace/services/hello
+
+RUN yarn build
+
+FROM base
+MAINTAINER Andreas Siegel
+
+WORKDIR /home/node
+
+COPY --from=builder /workspace/services/hello/dist /home/node
+COPY --from=builder /workspace/node_modules /home/node/node_modules
+COPY --from=builder /workspace/services/hello/package.json /home/node/package.json
+# COPY --from=builder /workspace/services/hello/package-lock.json /home/node/package-lock.json
+
+EXPOSE 8080
+ENTRYPOINT ["node", "index.js"]

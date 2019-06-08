@@ -1,0 +1,12 @@
+= Node.js Mono Repo for Kubernetes
+
+This is a playground project to setup a Node.js monorepo project.
+It is intended as a sample repository to experiment and showcase usage of various tools across the entire tool chain:
+
+- Lerna
+- Yarn Workspaces
+- Babel
+- Mocha and Chai
+- Docker
+- Helm
+- Skaffold

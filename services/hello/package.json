@@ -1,0 +1,16 @@
+{
+  "name": "hello",
+  "version": "1.0.0",
+  "description": "A sample web server",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -fr ./dist",
+    "build": "BABEL_ENV=build babel --root-mode upward src --out-dir dist --delete-dir-on-start --no-comments",
+    "test": "mocha --require @babel/register --require ../../babel.register.js --exit 'test/**/*test.js'"
+  },
+  "author": "Andreas Siegel",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

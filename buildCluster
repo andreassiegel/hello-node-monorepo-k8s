@@ -1,0 +1,6 @@
+#!/bin/bash
+
+lerna bootstrap
+yarn install
+lerna run build
+skaffold run
